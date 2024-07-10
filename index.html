@@ -29,9 +29,6 @@
         const sendButton = document.getElementById('send-button');
         const fileInput = document.getElementById('file-input');
 
-        // Replace with your actual Gradio app URL
-        const GRADIO_APP_URL = 'https://kingnishhf-opengpt-4o.hf.space';
-
         async function sendMessage() {
             const message = userInput.value.trim();
             const file = fileInput.files[0];
@@ -57,7 +54,7 @@
                 }
 
                 try {
-                    const response = await fetch(`${GRADIO_APP_URL}/api/predict/`, {
+                    const response = await fetch('/api/chat', {
                         method: 'POST',
                         body: formData
                     });
