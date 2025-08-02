@@ -28,6 +28,7 @@
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
         const fileInput = document.getElementById('file-input');
+        let chatHistory = [];
 
         async function sendMessage() {
             const message = userInput.value.trim();
@@ -40,7 +41,7 @@
                 const formData = new FormData();
                 formData.append('data', JSON.stringify([
                     message,
-                    [],  // chat history
+                    chatHistory,  // chat history
                     "idefics2-8b-chatty",  // model_selector
                     "Top P Sampling",  // decoding_strategy
                     0.5,  // temperature
@@ -64,7 +65,9 @@
                     }
 
                     const data = await response.json();
-                    addMessage('assistant', data.data[1]);
+                    const botMessage = data.data[1];
+                    addMessage('assistant', botMessage);
+                    chatHistory.push([message, botMessage]);
                 } catch (error) {
                     console.error('Error:', error);
                     addMessage('assistant', 'Sorry, I encountered an error. Please try again.');
